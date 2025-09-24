@@ -1,5 +1,6 @@
-function EditableTable() {
-  return <div>redigerbar tabell</div>;
-}
 
-export default EditableTable;
+import React from "react";
+
+export default function ExcelTable({ data }) {
+	console.log(data);
+}
