@@ -1,39 +1,28 @@
+import React from 'react';
+import Header from './components/Header';
+import UploadFile from './components/UploadFile';
+import Footer from './components/Footer';
+import Background from './components/Background';
 
-import Header from "./components/Header.jsx";
-import UploadFile from "./components/UploadFile.jsx";
-import EditableTable from "./components/EditableTable.jsx";
-import ExportButton from "./components/ExportButton.jsx";
-import Footer from "./components/Footer.jsx";
+
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="mx-auto max-w-6xl px-4 py-6 grid min-h-screen grid-rows-[auto_1fr_auto] gap-6">
-        {/* Header */}
-        <header className="rounded-2xl bg-emerald-100 p-4 shadow">
-          <Header />
-        </header>
+    <div className="relative flex flex-col min-h-screen text-white font-sans overflow-x-hidden">
+      <Background />
 
-        {/* Main */}
-        <main className="grid gap-6">
-          {/* Upload-sektion */}
-          <section className="card">
-            <UploadFile />
-          </section>
+      <div className="animate-fade-in-down [animation-delay:0.1s]">
+        <Header />
+      </div>
 
-          {/* Tabell-sektion */}
-          <section className="card">
-            <EditableTable />
-            <div className="mt-4">
-              <ExportButton />
-            </div>
-          </section>
-        </main>
+      <main className="flex-grow flex flex-col items-center justify-center p-4">
+        <div className="animate-fade-in-up [animation-delay:0.3s]">
+          <UploadFile />
+        </div>
+      </main>
 
-        {/* Footer */}
-        <footer className="rounded-2xl bg-emerald-100 p-4 text-sm text-center shadow">
-          <Footer />
-        </footer>
+      <div className="animate-fade-in-up [animation-delay:0.5s]">
+        <Footer />
       </div>
     </div>
   );
