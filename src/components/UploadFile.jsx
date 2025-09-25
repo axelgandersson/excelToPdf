@@ -67,12 +67,25 @@ export default function ExcelImporter() {
   // Tar emot uppdaterade rader från EditableTable vid redigering
   const updateData = (newRows) =>
     setData((prev) => ({ ...prev, rows: newRows }));
+  // funktion för att rensa tabellens data/ta bort filen
+  function clearTableData() {
+    setData({ columns: [], rows: [] });
+  }
 
   return (
     <div>
       <h2>Upload Excel File</h2>
       <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
       <EditableTable data={data} updateData={updateData} />
+
+      {data.rows.length > 0 && ( // visar bara "remove file"-knappen om det finns data i tabellen
+        <button
+          onClick={clearTableData}
+          className="cursor-pointer py-2 px-4 bg-gray-800 text-white rounded-xl mt-2 hover:bg-gray-700"
+        >
+          Remove File
+        </button>
+      )}
     </div>
   );
 }
