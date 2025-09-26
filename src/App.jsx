@@ -1,8 +1,6 @@
-
 import Header from "./components/Header.jsx";
 import UploadFile from "./components/UploadFile.jsx";
 import EditableTable from "./components/EditableTable.jsx";
-import ExportButton from "./components/ExportButton.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
@@ -24,9 +22,6 @@ function App() {
           {/* Tabell-sektion */}
           <section className="card">
             <EditableTable />
-            <div className="mt-4">
-              <ExportButton />
-            </div>
           </section>
         </main>
 
