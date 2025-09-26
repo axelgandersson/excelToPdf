@@ -13,7 +13,7 @@ export default function ExcelImporter() {
   // skapar Ref för att kunna nollställa filinputen vid borttagning av fil (annars kan inte filen väljas igen)
   const fileInputRef = useRef(null);
 
-  const isFirstRender = useRef(true); // ref för att spåra första renderingen (så att localStorage inte skrivs över direkt vid mount/refresh av sidan, annars visas aldrig sparat state/data)
+  const isFirstRender = useRef(true); // ref som kommer ihåg om det är första rendern, för att undvika att skriva över localstorage vid mount/refresh av sidan
 
   // körs vid mount för att kolla om data finns i localstorage
   useEffect(() => {

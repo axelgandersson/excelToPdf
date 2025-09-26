@@ -1,11 +1,8 @@
 import { DataGrid } from "@mui/x-data-grid";
 
 // MUI's DataGrid komponent
-// tar emot 'data-objektet' (defaultvärde för att undvika fel om inga props skickas med) och en funktion 'updateData' från parent-komponenten som props
-export default function EditableTable({
-  data = { columns: [], rows: [] },
-  updateData,
-}) {
+// tar emot props-> data-objekt(rows/columns-array) från parent + upDateData funktion (callback till parent med uppdaterad data)
+export default function EditableTable({ data, updateData }) {
   // skapar kolumner för DataGrid baserat på data.columns
   const gridColumns = data.columns.map((name) => ({
     field: name,
