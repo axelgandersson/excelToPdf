@@ -20,9 +20,7 @@ function App() {
           </section>
 
           {/* Tabell-sektion */}
-          <section className="card">
-            <EditableTable />
-          </section>
+          <section className="card"></section>
         </main>
 
         {/* Footer */}
