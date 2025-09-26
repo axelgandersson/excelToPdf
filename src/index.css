@@ -43,12 +43,12 @@ body {
   background-color: #0f172a; 
   background-image: radial-gradient(circle at top right, rgb(79 70 229 / 0.3), transparent 40%);
 }
-
+/* dropzone pulse */
 .dropzone-pulse { position: relative; }
 .dropzone-pulse::after {
   content: "";
   position: absolute;
-  inset: 0;                 /* ligger exakt innanför kanten */
+  inset: 0;                 
   border-radius: inherit;
   animation: dropzonePulse 2.4s ease-in-out infinite;
   pointer-events: none;

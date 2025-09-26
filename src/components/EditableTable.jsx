@@ -25,6 +25,7 @@ export default function EditableTable({ data, updateData }) {
   // anger rows utefter data(props)rows, och columns efter gridColumns.
   // processRowUpdate körs när en cell redigeras, skickar då uppdateringen till parent-komponenten via updateData (enter/klick utanför cellen)
   return (
+    // wrapper div för att sätta höjd och bredd på DataGrid
     <div style={{ height: 500, width: "100%" }}>
       <DataGrid
         rows={data.rows || []}
@@ -52,7 +53,7 @@ export default function EditableTable({ data, updateData }) {
             fontWeight: 600,
           },
 
-          // viktiga: gör sorterings-/menyikoner indigo i stället för vita
+          //  gör sorterings och menyikoner indigo ish istället för vit
           "& .MuiDataGrid-sortIcon": { color: "rgb(129 140 248)" },
           "& .MuiDataGrid-columnHeader--sorted .MuiDataGrid-sortIcon": {
             color: "rgb(165 180 252)",
