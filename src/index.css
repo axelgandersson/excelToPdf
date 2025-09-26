@@ -16,18 +16,13 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-border {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(165, 180, 252, 0.7);
-  }
+/* Puls i ramen */
+@keyframes dropzonePulse {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(99,102,241,0.0); }
+  50%      { box-shadow: inset 0 0 0 6px rgba(99,102,241,0.25); }
 }
 
-/* animation */
+/* animation för bakgrund */
 .animate-aurora-1 {
   animation: aurora 20s linear infinite;
 }
@@ -43,22 +38,20 @@
 .animate-fade-in-down {
   animation: fade-in-down 0.8s ease-out forwards;
 }
-.animate-pulse-border {
-  animation: pulse-border 3s ease-in-out infinite;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-
-.animate-pulse-border:hover {
-  animation-play-state: paused;
-  transform: scale(1.05) !important;
-  box-shadow: 0 0 15px rgba(165, 180, 252, 0.5);
-}
-
 
 body {
-  background-color: #0f172a; /* slate-900 */
+  background-color: #0f172a; 
   background-image: radial-gradient(circle at top right, rgb(79 70 229 / 0.3), transparent 40%);
+}
+
+.dropzone-pulse { position: relative; }
+.dropzone-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;                 /* ligger exakt innanför kanten */
+  border-radius: inherit;
+  animation: dropzonePulse 2.4s ease-in-out infinite;
+  pointer-events: none;
 }
 
 
