@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import * as XLSX from "xlsx";
 import EditableTable from "./EditableTable";
+import ExportButton from "./ExportButton";
 
 /*ExcelImporter läser in bladet och gör tillfälligt om till AOA.
 -Konverterar sen direkt AOA till {Columns, rows} innan vi sätter state för det är det som EditableTable/MUI DataGrid vill ha*/
@@ -93,6 +94,9 @@ export default function ExcelImporter() {
       {data.rows.length > 0 && ( // visar bara editabletable-komponenten och "remove file"-knappen om data finns/hämtats
         <>
           <EditableTable data={data} updateData={updateData} />
+          {/* Skicka tabell-datan till knappen */}
+          <ExportButton data={data} />
+
           <button
             onClick={clearTableData}
             className="cursor-pointer py-2 px-4 bg-gray-800 text-white rounded-xl mt-2 hover:bg-gray-700"
