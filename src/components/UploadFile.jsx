@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import * as XLSX from "xlsx";
 import EditableTable from "./EditableTable";
+import ExportButton from "./ExportButton";
 
 export default function UploadFile() {
   // State som innehåller tabellens columns and rows.
   const [data, setData] = useState({ columns: [], rows: [] });
+
+  // skapar Ref för att kunna nollställa filinputen vid borttagning av fil (annars kan inte filen väljas igen)
+  const fileInputRef = useRef(null);
 
   // Funktion som körs när användaren väljer en fil i <input type="file">
   const handleFileUpload = (e) => {
@@ -64,10 +68,14 @@ export default function UploadFile() {
   // Tar emot uppdaterade rader från EditableTable vid redigering
   const updateData = (newRows) =>
     setData((prev) => ({ ...prev, rows: newRows }));
-  
+
   // funktion för att rensa tabellens data/ta bort filen
   function clearTableData() {
     setData({ columns: [], rows: [] });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null; // nollställer filinputen så samma fil kan väljas igen
+    }
   }
 
   return (
@@ -82,6 +90,7 @@ export default function UploadFile() {
                      border-2 border-dashed border-slate-600
                      transition-all duration-300 
                      cursor-pointer 
+                     animate-pulse-border
                      hover:border-indigo-400 hover:scale-105">
           <div className="absolute inset-0 bg-indigo-500/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           
@@ -89,6 +98,7 @@ export default function UploadFile() {
             type="file" 
             accept=".xlsx, .xls" 
             onChange={handleFileUpload}
+            ref={fileInputRef}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
           />
 
@@ -102,19 +112,24 @@ export default function UploadFile() {
         </div>
       </div>
 
-      {data.rows.length > 0 && (
-        <div className="mt-8">
+      {data.rows.length > 0 && ( // visar bara editabletable-komponenten och "remove file"-knappen om data finns/hämtats
+        <div className="mt-8 animate-fade-in-up">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold text-slate-100">File Data</h3>
             <button
               onClick={clearTableData}
-              className="cursor-pointer py-2 px-4 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors duration-200"
+              className="cursor-pointer py-2 px-4 bg-red-600/80 backdrop-blur-sm text-white rounded-xl hover:bg-red-600 hover:scale-105 transition-all duration-200 border border-red-500/20"
             >
               Remove File
             </button>
           </div>
-          <div className="bg-white rounded-xl p-4">
+          
+          <div className="bg-slate-800/60 backdrop-blur-xl border border-slate-700 rounded-xl p-6 shadow-2xl">
             <EditableTable data={data} updateData={updateData} />
+            {/* Skicka tabell-datan till knappen */}
+            <div className="mt-4">
+              <ExportButton data={data} />
+            </div>
           </div>
         </div>
       )}

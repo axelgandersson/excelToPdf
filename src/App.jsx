@@ -1,10 +1,9 @@
 import React from 'react';
-import Header from './components/Header';
-import UploadFile from './components/UploadFile';
-import Footer from './components/Footer';
-import Background from './components/Background';
-
-
+import Header from './components/Header.jsx';
+import UploadFile from './components/UploadFile.jsx';
+import EditableTable from './components/EditableTable.jsx';
+import Footer from './components/Footer.jsx';
+import Background from './components/Background.jsx';
 
 function App() {
   return (
@@ -19,6 +18,11 @@ function App() {
         <div className="animate-fade-in-up [animation-delay:0.3s]">
           <UploadFile />
         </div>
+        
+        {/* Table section */}
+        <section className="card mt-8">
+          <EditableTable />
+        </section>
       </main>
 
       <div className="animate-fade-in-up [animation-delay:0.5s]">
