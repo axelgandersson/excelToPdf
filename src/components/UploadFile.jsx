@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import * as XLSX from "xlsx";
 import EditableTable from "./EditableTable";
 
@@ -8,6 +8,9 @@ import EditableTable from "./EditableTable";
 export default function ExcelImporter() {
   // State som innehåller tabellens columns and rows.
   const [data, setData] = useState({ columns: [], rows: [] });
+
+  // skapar Ref för att kunna nollställa filinputen vid borttagning av fil (annars kan inte filen väljas igen)
+  const fileInputRef = useRef(null);
 
   // Funktion som körs när användaren väljer en fil i <input type="file">
   const handleFileUpload = (e) => {
@@ -67,15 +70,25 @@ export default function ExcelImporter() {
   // Tar emot uppdaterade rader från EditableTable vid redigering
   const updateData = (newRows) =>
     setData((prev) => ({ ...prev, rows: newRows }));
+
   // funktion för att rensa tabellens data/ta bort filen
   function clearTableData() {
     setData({ columns: [], rows: [] });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null; // nollställer filinputen så samma fil kan väljas igen
+    }
   }
 
   return (
     <div>
       <h2>Upload Excel File</h2>
-      <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
+      <input
+        type="file"
+        accept=".xlsx, .xls"
+        onChange={handleFileUpload}
+        ref={fileInputRef} // referens för att kunna nollställa inputen
+      />
 
       {data.rows.length > 0 && ( // visar bara editabletable-komponenten och "remove file"-knappen om data finns/hämtats
         <>
