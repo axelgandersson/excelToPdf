@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import * as XLSX from "xlsx";
 import EditableTable from "./EditableTable";
 import ExportButton from "./ExportButton";
@@ -9,6 +9,26 @@ export default function UploadFile() {
 
   // skapar Ref för att kunna nollställa filinputen vid borttagning av fil (annars kan inte filen väljas igen)
   const fileInputRef = useRef(null);
+
+  const isFirstRender = useRef(true); // ref som kommer ihåg om det är första rendern, för att undvika att skriva över localstorage vid mount/refresh av sidan
+
+  // körs vid mount för att kolla om data finns i localstorage
+  useEffect(() => {
+    const savedData = localStorage.getItem("tableData"); // kolla localstorage om data finns sparad
+    if (savedData) {
+      setData(JSON.parse(savedData)); // sätter state med sparad data
+    }
+  }, []);
+
+  // sparar data i localstorage och körs varje gång data ändras
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // hoppar över första rendern (vid mount/refresh) för att inte skriva över localstorage och visa tom data
+    }
+
+    localStorage.setItem("tableData", JSON.stringify(data)); // spara data i localstorage
+  }, [data]);
 
   // Funktion som körs när användaren väljer en fil i <input type="file">
   const handleFileUpload = (e) => {
