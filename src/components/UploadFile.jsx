@@ -4,6 +4,9 @@ import EditableTable from "./EditableTable";
 import ExportButton from "./ExportButton";
 import { FaTrashAlt } from "react-icons/fa";
 
+/*ExcelImporter läser in bladet och gör tillfälligt om till AOA.
+-Konverterar sen direkt AOA till {Columns, rows} innan vi sätter state för det är det som EditableTable/MUI DataGrid vill ha*/
+
 export default function UploadFile() {
   // State som innehåller tabellens columns and rows.
   const [data, setData] = useState({ columns: [], rows: [] });
