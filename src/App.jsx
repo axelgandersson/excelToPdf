@@ -1,35 +1,39 @@
+import React from "react";
 import Header from "./components/Header.jsx";
 import UploadFile from "./components/UploadFile.jsx";
-import EditableTable from "./components/EditableTable.jsx";
 import Footer from "./components/Footer.jsx";
+import Background from "./components/Background.jsx";
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="mx-auto max-w-6xl px-4 py-6 grid min-h-screen grid-rows-[auto_1fr_auto] gap-6">
-        {/* Header */}
-        <header className="rounded-2xl bg-emerald-100 p-4 shadow">
-          <Header />
-        </header>
+    <div className="relative flex flex-col min-h-screen text-white font-sans overflow-x-hidden">
+      {/* Bakgrund */}
+      <Background />
 
-        {/* Main */}
-        <main className="grid gap-6">
-          {/* Upload-sektion */}
-          <section className="card">
-            <UploadFile />
-          </section>
+      {/* Header – fullbredd */}
+      <header className="w-full animate-fade-in-down [animation-delay:0.1s]">
+        <Header />
+      </header>
 
-          {/* Tabell-sektion */}
-          <section className="card"></section>
-        </main>
+      {/* Main – centrerad med maxbredd */}
+     
+      <main className="mx-auto max-w-7xl px-4 py-6 flex-1 grid gap-6">
+        {/* Upload + tabell (hanteras i UploadFile) */}
+        <section className="animate-fade-in-up [animation-delay:0.3s]">
+          <UploadFile />
+        </section>
+      </main>
 
-        {/* Footer */}
-        <footer className="rounded-2xl bg-emerald-100 p-4 text-sm text-center shadow">
-          <Footer />
-        </footer>
-      </div>
+      {/* Footer – fullbredd */}
+      <footer className="w-full animate-fade-in-up [animation-delay:0.5s] text-sm text-center">
+        <Footer />
+      </footer>
     </div>
   );
 }
 
 export default App;
+
+
+
+
