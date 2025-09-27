@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
-// override mui tema för att få mörkt tema som matchar resten av sidan
+// override mui standard   theme 
 const theme = createTheme({
   palette: {
     mode: "dark",

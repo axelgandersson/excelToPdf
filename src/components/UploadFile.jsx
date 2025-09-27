@@ -150,7 +150,7 @@ export default function UploadFile() {
               ></path>
             </svg>
             <p className="font-semibold">Drop Excel files here</p>
-            <p className="text-sm">or click to browse (.xlsx, .xls)</p>
+            <p className="text-sm">or click to browse </p>
           </div>
         </div>
       </div>
