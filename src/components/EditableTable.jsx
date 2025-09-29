@@ -1,36 +1,31 @@
 import { DataGrid } from "@mui/x-data-grid";
 
-// MUI's DataGrid komponent
-// tar emot props-> data-objekt(rows/columns-array) från parent + upDateData funktion (callback till parent med uppdaterad data)
+// MUI DataGrid component
 export default function EditableTable({ data, updateData }) {
-  // skapar kolumner för DataGrid baserat på data.columns
+  // creates columns for the DataGrid from the data prop (columns)
   const gridColumns = data.columns.map((name) => ({
     field: name,
     headerName: name,
-    minWidth: 150, // min bredd på kolumn
-    editable: true, //gör cellerna redigerbara
-    flex: 1, //ger autobredd
+    minWidth: 150,
+    editable: true, // making the cells editable
+    flex: 1,
   }));
 
-  // funktion som hanterar uppdatering av rows när en cell redigeras
-  // mapar igenom data.rows, om id matchar den uppdaterade raden, returnera den uppdaterade rowen, annars behåll den gamla.
+  // update function that handles row updates when a cell is edited
   const processRowUpdate = (updatedRow) => {
     const updated = data.rows.map((row) =>
       row.id === updatedRow.id ? updatedRow : row
     );
-    updateData(updated); //skicka upp de uppdaterade rowsen till parent-komponenten
+    updateData(updated);
     return updatedRow;
   };
 
-  // anger rows utefter data(props)rows, och columns efter gridColumns.
-  // processRowUpdate körs när en cell redigeras, skickar då uppdateringen till parent-komponenten via updateData (enter/klick utanför cellen)
   return (
-    // wrapper div för att sätta höjd och bredd på DataGrid
     <div style={{ height: 500, width: "100%" }}>
       <DataGrid
         rows={data.rows || []}
         columns={gridColumns}
-        processRowUpdate={processRowUpdate}
+        processRowUpdate={processRowUpdate} // processRowUpdate is called by the DataGrid when a cell is edited, sending the update to the parent component via updateData (on enter/click outside the cell)
         disableRowSelectionOnClick
         columnBuffer={2}
         columnThreshold={2}
@@ -53,7 +48,6 @@ export default function EditableTable({ data, updateData }) {
             fontWeight: 600,
           },
 
-          //  gör sorterings och menyikoner indigo ish istället för vit
           "& .MuiDataGrid-sortIcon": { color: "rgb(129 140 248)" },
           "& .MuiDataGrid-columnHeader--sorted .MuiDataGrid-sortIcon": {
             color: "rgb(165 180 252)",
