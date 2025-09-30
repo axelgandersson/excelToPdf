@@ -15,11 +15,8 @@ import {
   tableWrapper,
 } from "../styleVariables/uploadStyleNames.js";
 
-/*ExcelImporter läser in bladet och gör tillfälligt om till AOA.
--Konverterar sen direkt AOA till {Columns, rows} innan vi sätter state för det är det som EditableTable/MUI DataGrid vill ha*/
-
 export default function UploadFile() {
-  // State som innehåller tabellens columns and rows.
+  // fetches all logic and state for file upload and data handling from uploadLogic.js
   const { data, fileInputRef, handleFileUpload, updateData, clearTableData } =
     useUploadLogic();
 
@@ -73,7 +70,7 @@ export default function UploadFile() {
       </div>
 
       {data.rows.length > 0 &&
-        data.columns.length > 0 && ( // visar bara editabletable-komponenten och "remove file"-knappen om data finns/hämtats
+        data.columns.length > 0 && ( // only shows table and remove button if there's data
           <div className="mt-8 animate-fade-in-up">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold text-slate-100">
@@ -87,7 +84,6 @@ export default function UploadFile() {
 
             <div className={tableWrapper}>
               <EditableTable data={data} updateData={updateData} />
-              {/* Skicka tabell-datan till knappen */}
               <div className="mt-4">
                 <ExportButton data={data} />
               </div>
